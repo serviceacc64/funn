@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Manager</title>
+    <link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+<body>
+    <div class="sidebar">
+        <h2>File Manager</h2>
+        <ul>
+            <li class="nav-item active" data-page="dashboard">Dashboard</li>
+            <li class="nav-item" data-page="upload">Upload</li>
+            <li class="nav-item" data-page="view">View Files</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <!-- Dashboard -->
+        <div id="dashboard" class="page active">
+            <h1>Dashboard</h1>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalFiles">0</div>
+                    <div class="stat-label">Total Files</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStorage">0 MB</div>
+                    <div class="stat-label">Storage Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="uploadsToday">0</div>
+                    <div class="stat-label">Uploads Today</div>
+                </div>
+            </div>
+            <div class="dashboard-section">
+                <h2>Recent Files</h2>
+                <div id="recentFilesList"></div>
+            </div>
+            <div class="quick-actions">
+                <button onclick="switchPage('upload')" class="action-btn primary">Upload New File</button>
+                <button onclick="switchPage('view')" class="action-btn">View All Files</button>
+            </div>
+        </div>
+        <!-- Upload Page -->
+        <div id="upload" class="page">
+            <h1>Upload Files</h1>
+            <div class="upload-area" id="uploadArea">
+                <p>Drag and drop files here or click to select</p>
+                <input type="file" id="fileInput" multiple accept="*/*" style="display: none;">
+            </div>
+            <div id="fileList"></div>
+            <div class="name-input-container">
+              <input type="text" id="fileNameInput" placeholder="Enter custom name (optional, applies to all selected files)">
+            </div>
+            <button id="confirmUpload">Confirm Upload</button>
+
+        </div>
+        <!-- View Files Page -->
+        <div id="view" class="page">
+<h1>View Files</h1>
+            <div class="filters-container">
+              <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search files by name...">
+              </div>
+              <input type="date" id="dateFilter" placeholder="Filter by date">
+
+            </div>
+            <div id="filesGrid" class="files-grid"></div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

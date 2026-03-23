@@ -1,0 +1,454 @@
+/* Black and White theme with shades */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5; /* Light gray-white */
+    color: #333; /* Dark gray-black */
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1a1a1a; /* Dark black */
+    color: #ffffff; /* White */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h2 {
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.nav-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #333333; /* Medium black */
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #555555; /* Lighter black */
+}
+
+.nav-item.active {
+    background-color: #000000; /* Pure black */
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background-color: #ffffff; /* Pure white */
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+h1 {
+    color: #1a1a1a; /* Dark black */
+    margin-bottom: 20px;
+}
+
+.upload-area {
+    border: 3px dashed #666666; /* Medium gray */
+    border-radius: 12px;
+    padding: 60px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    background-color: #fafafa; /* Very light gray-white */
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: #000000; /* Black */
+    background-color: #f0f0f0;
+}
+
+.upload-area p {
+    color: #666666;
+    font-size: 1.1em;
+}
+
+#fileList {
+    margin-bottom: 20px;
+}
+
+.file-item {
+    display: inline-block;
+    background: #e0e0e0; /* Light gray */
+    padding: 10px;
+    margin: 5px;
+    border-radius: 6px;
+    color: #333;
+}
+
+.name-input-container {
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+#fileNameInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #666666;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fafafa;
+    color: #333;
+}
+
+#fileNameInput::placeholder {
+    color: #999;
+}
+
+#fileNameInput:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+#confirmUpload {
+    background-color: #000000; /* Black */
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: 0.2s;
+}
+
+
+#confirmUpload:hover {
+    background-color: #05f90a;
+}
+
+.filters-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+}
+
+.date-filter-container {
+    display: flex;
+    gap: 10px;
+}
+
+.date-filter-container input {
+    padding: 10px;
+    border: 2px solid #666666;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #333;
+    font-size: 0.95em;
+}
+
+.date-filter-container input:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #666666;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fafafa;
+    color: #333;
+}
+#dateFilter{
+    width: 20%;
+    max-width: 150px;
+    padding: 12px 16px;
+    border: 2px solid #666666;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #fafafa;
+    color: #333;
+}
+
+#searchInput::placeholder {
+    color: #999;
+}
+
+#searchInput:focus, #dateFilter:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+#searchInput::placeholder {
+    color: #999;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #000000;
+    background-color: #ffffff;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.dashboard-section h2 {
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+#recentFilesList {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.recent-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.recent-item:hover {
+    background: #f5f5f5;
+}
+
+.recent-item:last-child {
+    border-bottom: none;
+}
+
+.recent-icon {
+    font-size: 1.5em;
+    margin-right: 12px;
+}
+
+.recent-info {
+    flex: 1;
+}
+
+.recent-name {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.recent-date {
+    font-size: 0.85em;
+    color: #888;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-btn.primary {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.action-btn.primary:hover {
+    background-color: #333333;
+    transform: translateY(-1px);
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.files-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.file-card {
+    background-color: #f8f8f8; /* Very light gray-white */
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: box-shadow 0.3s;
+}
+
+.file-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.file-preview {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.file-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.file-icon {
+    font-size: 3em;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-type {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.file-name {
+    font-weight: bold;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.file-date {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.download-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.download-btn:hover {
+    border: none;
+    background-color: #1dfc00;
+    color: #ffffff;
+}
+
+.delete-btn {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+
+    background-color: #f61f1f;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+}

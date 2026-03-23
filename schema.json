@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/file_manager.schema.json",
+  "title": "File Manager Schema",
+  "description": "Schema for the File Manager project data models (Supabase 'files' table)",
+  "type": "object",
+  "properties": {
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique file ID (auto-generated)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the file"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes"
+          },
+          "mime_type": {
+            "type": "string",
+            "description": "MIME type (e.g., 'image/jpeg')"
+          },
+          "path": {
+            "type": "string",
+            "description": "Storage path (e.g., 'timestamp-filename.ext')"
+          },
+          "uploaded_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Upload timestamp (ISO 8601)"
+          }
+        },
+        "required": ["id", "name", "size", "mime_type", "path", "uploaded_at"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "sql_ddl": {
+    "supabase_postgres": "CREATE TABLE files (\n  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,\n  name TEXT NOT NULL,\n  size BIGINT NOT NULL,\n  mime_type TEXT NOT NULL,\n  path TEXT NOT NULL UNIQUE,\n  uploaded_at TIMESTAMPTZ DEFAULT NOW() NOT NULL\n);\n\nCREATE INDEX idx_files_uploaded_at ON files(uploaded_at DESC);\n\n-- RLS Policy for anon SELECT\nALTER TABLE files ENABLE ROW LEVEL SECURITY;\nCREATE POLICY \"Public files are viewable by everyone.\" ON files FOR SELECT USING (true);\n\n-- Delete policy for anon (with trigger for storage cleanup)\nCREATE POLICY \"Authenticated users can delete own files.\" ON files FOR DELETE USING (true); -- Adjust for auth",
+    "description": "Full SQL for Supabase Postgres table. Run in Supabase SQL Editor."
+  },
+  "storage_bucket": {
+    "name": "files",
+    "public": true,
+    "policies": [
+      "Public read/list/download",
+      "Anon DELETE (for file cleanup)"
+    ]
+  }
+}
+
