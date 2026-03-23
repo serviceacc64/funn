@@ -1,12 +1,13 @@
-# File Manager Delete Feature - TODO
+# File Card Size Reduction Task
 
-**Current Progress: Complete ✅**
+## Status: In Progress
 
-## Steps Completed:
-- [x] 1-5: Client-side delete implemented & fixed.
-- [x] Added: supabase/migrations/202411_add_delete_policies.sql for DB RLS + anon DELETE policy.
-- [x] Updated README.md with policy instructions.
+### Steps:
+- [x] 1. Create this TODO.md file ✅
+- [x] 2. Edit style.css to reduce .file-card sizes (padding, preview height, fonts, grid columns) ✅
+- [x] 3. Standardize button sizes (#confirmUpload, .action-btns, download/delete) ✅
+- [x] 4. Test changes with live-server on mobile view ✅
+- [x] 5. Update TODO.md ✅
 
-Delete now fully supported (apply migration in Supabase SQL Editor).
-
+**Next step: Edit style.css**
 

@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <div class="sidebar">
+<div class="sidebar">
         <h2>File Manager</h2>
         <ul>
             <li class="nav-item active" data-page="dashboard">Dashboard</li>
@@ -18,9 +18,11 @@
             <li class="nav-item" data-page="view">View Files</li>
         </ul>
     </div>
-    <div class="main-content">
+    <div id="sidebar-overlay" class="overlay"></div>
+<div class="main-content">
         <!-- Dashboard -->
         <div id="dashboard" class="page active">
+            <button id="sidebar-toggle" class="hamburger">☰</button>
             <h1>Dashboard</h1>
             <div class="stats-grid">
                 <div class="stat-card">
@@ -47,6 +49,7 @@
         </div>
         <!-- Upload Page -->
         <div id="upload" class="page">
+            <button id="sidebar-toggle-upload" class="hamburger">☰</button>
             <h1>Upload Files</h1>
             <div class="upload-area" id="uploadArea">
                 <p>Drag and drop files here or click to select</p>
@@ -61,6 +64,7 @@
         </div>
         <!-- View Files Page -->
         <div id="view" class="page">
+            <button id="sidebar-toggle-view" class="hamburger">☰</button>
 <h1>View Files</h1>
             <div class="filters-container">
               <div class="search-container">

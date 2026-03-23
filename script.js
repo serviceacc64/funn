@@ -10,18 +10,44 @@ let files = []; // Current files list
 let supabaseClient = null; // Our client instance
 
 // Init
+
+
+
 document.addEventListener('DOMContentLoaded', init);
 
 async function init() {
+  // Sidebar toggle
+  const sidebarToggles = document.querySelectorAll('.hamburger');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+  const sidebar = document.querySelector('.sidebar');
+  // No mainContent shift needed
+
+  function toggleSidebar(e) {
+    sidebar.classList.toggle('open');
+    sidebarOverlay.classList.toggle('open');
+    e.target.classList.toggle('active');
+  }
+
+  sidebarToggles.forEach(toggle => toggle.addEventListener('click', toggleSidebar));
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('open');
+    });
+  }
+
   // Supabase client (required)
   supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   await loadFiles();
 
-  // Nav
+  // Nav - enhanced to close sidebar on mobile
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', (e) => {
       const page = e.currentTarget.dataset.page;
       switchPage(page);
+      // Close sidebar
+      sidebar.classList.remove('open');
+      sidebarOverlay.classList.remove('open');
     });
   });
 
